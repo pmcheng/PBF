@@ -9,10 +9,16 @@ The compiled script can be downloaded [here](https://pcheng.org/powermic/PowerMi
 
 Fluency should be configured ahead of time to map the F1, F2, and F3 function keys to dictation, previous field, and next field functions in Fluency, as shown here:
 
-![Fluency User Preferences](Fluency_User_Preferences.png)
+<p align="center">
+<img src="Fluency_User_Preferences.png">
+</p>
 
-If Fluency is running as an independent window recognizable by the host operating system, the script will send the function keys directly to the Fluency window.  Otherwise, if Fluency is running in a virtual environment (e.g. VDI/vGPU) the script will send the function keys to the active window, which may have unintended side effects.
+In the default configuration, the PowerMic dictation button operates as a deadman switch, i.e. press and hold to dictate, release to stop dictation.  In "Toggle Mode", pressing the Dictation button activates the microphone, and pressing again deactivates it.  To activate Toggle Mode, right click the tray icon for a context menu and click on the Toggle Mode option.  You can also turn the script on or off by clicking the "Active" item in the menu, or by double-clicking the tray icon (this may be useful if you need to intermittently use the PowerMic in a program other than Fluency).  The tray icon turns red when the script is disabled.
 
-Right click the tray icon for a context menu.  The script has a "Toggle Mode" if you prefer to use the Dictation button to toggle dictation on and off, rather than as a deadman switch.  You can also activate/disable the script in the menu, or by double-clicking the tray icon.  The tray icon turns red when the script is disabled.
+<p align="center">
+<img src="tray_menu.png">
+</p>
 
-The script can be used as a template for mapping PowerMic buttons to arbitrary system actions.  It uses the [AHKHID](https://github.com/jleb/AHKHID) library; if running or compiling from source, obtain AHKHID.ahk and put it in the same folder as the main script.
+If Fluency is running as an independent window recognizable by the host operating system, the script will send the function keys directly to the Fluency window.  Otherwise, if Fluency is running within a remote desktop, the script will send the function keys to the active window within the desktop, which may have unintended side effects.
+
+The script can be used as a template for mapping PowerMic buttons to arbitrary system actions.  It uses the [AHKHID](https://github.com/jleb/AHKHID) library; if running or compiling from source, obtain [AHKHID.ahk](https://github.com/jleb/AHKHID/blob/master/AHKHID.ahk) and put it in the same folder as the main script.
