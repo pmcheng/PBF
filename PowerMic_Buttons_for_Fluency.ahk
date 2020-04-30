@@ -13,6 +13,7 @@
 ; F3 = Next field (Tab forward button)
 
 ; AHK Version 1.1
+; uses AHKHID from https://github.com/jleb/AHKHID
 
 #Include AHKHID.ahk
 #SingleInstance, force
@@ -28,6 +29,10 @@ Menu, Tray, Tip, PowerMic Buttons for Fluency (active)
 
 Menu, Tray, Add, About, about
 Menu, Tray, Add
+
+Menu, Tray, Add, Dictation Beep, beep_mode
+Menu, Tray, ToggleCheck, Dictation Beep
+beep:=1
 
 Menu, Tray, Add, Toggle Mode, toggle_mode
 toggle:=0
@@ -53,6 +58,11 @@ toggle_mode:
     Menu, Tray, ToggleCheck, Toggle Mode
     toggle:=!toggle
     Return
+    
+beep_mode:
+    Menu, Tray, ToggleCheck, Dictation Beep
+    beep:=!beep
+    Return
 
 active:
     Menu, Tray, ToggleCheck, Active
@@ -71,7 +81,7 @@ about:
     Msgbox,,PowerMic Buttons for Fluency,
 (
 PowerMic Buttons for Fluency (PBF)
-v. 1.00
+v. 1.01
 
 by Phillip Cheng MD MS
 phillip.cheng@med.usc.edu
@@ -122,7 +132,9 @@ InputMsg(wParam, lParam) {
                         if (toggle = 0) {
                             dictate := 1
                         }
-                        SoundBeep, 400
+                        if (beep = 1) {
+                            SoundBeep, 400
+                        }
                     case 0x0: ; Dictate button released, toggle dictation off
                         if (toggle = 0) {
                             if (dictate = 1) {
