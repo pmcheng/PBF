@@ -81,7 +81,7 @@ about:
     Msgbox,,PowerMic Buttons for Fluency,
 (
 PowerMic Buttons for Fluency (PBF)
-v. 1.01
+v. 1.02
 
 by Phillip Cheng MD MS
 phillip.cheng@med.usc.edu
@@ -91,10 +91,17 @@ F1 = Start/Stop recording (PMic Dictate button)
 F2 = Previous field (PMic Tab backward button)
 F3 = Next field (PMic Tab forward button)
 
-Toggle Mode: Push to dictate, push to stop
-        (disable deadman switch mode)
-Active: Uncheck to disable PMic buttons 
-        (can also double click tray icon)
+Dictation Beep: 
+        on = beep when PMic Dictate button pressed
+
+Toggle Mode: 
+        on = push to dictate, push again to stop
+        off = deadman switch (push and hold to dictate)
+        
+Active: 
+        on = script enabled (green tray icon)
+        off = script disabled (red tray icon)
+        (double-clicking tray icon also toggles script)
 )
     Return
 
