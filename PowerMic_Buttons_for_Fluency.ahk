@@ -81,7 +81,7 @@ about:
     Msgbox,,PowerMic Buttons for Fluency,
 (
 PowerMic Buttons for Fluency (PBF)
-v. 1.02
+v. 1.03
 
 by Phillip Cheng MD MS
 phillip.cheng@med.usc.edu
@@ -127,11 +127,20 @@ InputMsg(wParam, lParam) {
                 r := AHKHID_GetInputData(lParam, uData)
                 data := NumGet(uData,2,"UShort")
 
+                local:=1
                 fluency:= WinExist("Fluency for Imaging Reporting")
+                if (fluency>0) {
+                    WinGet, exe_file, ProcessName, ahk_id %fluency%
+                    if (exe_file == "vmware-view.exe") {
+                        local:=0
+                    } else {
+                        WinActivate, ahk_id %fluency%
+                    }
+                }
                 switch data
                 {
                     case 0x4: ; Dictate button pressed, toggle dictation on
-                        if (fluency>0) {
+                        if (local = 0) {
                             controlsend,,{F1},ahk_id %fluency%
                         } else {
                             send {F1}
@@ -145,7 +154,7 @@ InputMsg(wParam, lParam) {
                     case 0x0: ; Dictate button released, toggle dictation off
                         if (toggle = 0) {
                             if (dictate = 1) {
-                                if (fluency>0) {
+                                if (local = 0) {
                                     controlsend,,{F1},ahk_id %fluency%
                                 } else {
                                     send {F1}
@@ -154,13 +163,13 @@ InputMsg(wParam, lParam) {
                             }
                         }
                     case 0x2: ; Tab backward button pressed, previous field
-                        if (fluency>0) {
+                        if (local = 0) {
                             controlsend,,{F2},ahk_id %fluency%
                         } else {
                             send {F2}
                         }
                     case 0x8: ; Tab forward button pressed, next field
-                        if (fluency>0) {
+                        if (local = 0) {
                             controlsend,,{F3},ahk_id %fluency%
                         } else {
                             send {F3}
