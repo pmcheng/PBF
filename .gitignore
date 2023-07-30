@@ -2,4 +2,7 @@
 *.ico
 *.exe
 *.svg
+*.zip
+*.bat
 AHKHID.ahk
+old/

@@ -35,7 +35,8 @@ Menu, Tray, ToggleCheck, Dictation Beep
 beep:=1
 
 Menu, Tray, Add, Toggle Mode, toggle_mode
-toggle:=0
+Menu, Tray, ToggleCheck, Toggle Mode
+toggle:=1
 
 Menu, Tray, Add, Active, active
 Menu, Tray, ToggleCheck, Active
@@ -81,7 +82,7 @@ about:
     Msgbox,,PowerMic Buttons for Fluency,
 (
 PowerMic Buttons for Fluency (PBF)
-v. 1.03
+v. 2023-07-29
 
 by Phillip Cheng MD MS
 phillip.cheng@med.usc.edu
@@ -127,52 +128,72 @@ InputMsg(wParam, lParam) {
                 r := AHKHID_GetInputData(lParam, uData)
                 data := NumGet(uData,2,"UShort")
 
-                local:=1
+                local := 0
                 fluency:= WinExist("Fluency for Imaging Reporting")
                 if (fluency>0) {
-                    WinGet, exe_file, ProcessName, ahk_id %fluency%
-                    if (exe_file == "vmware-view.exe") {
-                        local:=0
-                    } else {
-                        WinActivate, ahk_id %fluency%
+                    local := 1
+                }
+                else {
+                    if !WinActive("ahk_exe vmware-view.exe") {
+                        Return
                     }
                 }
                 switch data
                 {
                     case 0x4: ; Dictate button pressed, toggle dictation on
-                        if (local = 0) {
-                            controlsend,,{F1},ahk_id %fluency%
-                        } else {
-                            send {F1}
-                        }
-                        if (toggle = 0) {
-                            dictate := 1
-                        }
-                        if (beep = 1) {
-                            SoundBeep, 400
-                        }
-                    case 0x0: ; Dictate button released, toggle dictation off
-                        if (toggle = 0) {
-                            if (dictate = 1) {
-                                if (local = 0) {
-                                    controlsend,,{F1},ahk_id %fluency%
-                                } else {
-                                    send {F1}
+                        if (local = 1) {
+                            if ((dictate = 1) and (toggle = 1)) {
+                                send {`` up}
+                                dictate := 0
+                                if (beep = 1) {
+                                    SoundBeep, 300
                                 }
-                                dictate :=0
+                            } else {
+                                send {`` down}
+                                dictate := 1
+                                if (beep = 1) {
+                                    SoundBeep, 400
+                                }
+                            }
+                        } else {
+                            if ((dictate = 1) and (toggle = 1)) {
+                                send {F14}
+                                dictate := 0
+                                if (beep = 1) {
+                                    SoundBeep, 300
+                                }
+                            } else {
+                                send {F13}
+                                dictate := 1
+                                if (beep = 1) {
+                                    SoundBeep, 400
+                                }
+                            }
+                        }
+
+                    case 0x0: ; Dictate button released, toggle dictation off
+                        if (toggle=0) {
+                            if (local = 1) {
+                                send {`` up}
+                            } else {
+                                send {F14}
+                            }
+                            dictate :=0
+                            if (beep = 1) {
+                                SoundBeep, 300
                             }
                         }
                     case 0x2: ; Tab backward button pressed, previous field
-                        if (local = 0) {
-                            controlsend,,{F2},ahk_id %fluency%
+                        if (local = 1) {
+                            controlsend,,+{tab},ahk_id %fluency%
                         } else {
-                            send {F2}
+                            send {F15}
                         }
                     case 0x8: ; Tab forward button pressed, next field
-                        if (local = 0) {
-                            controlsend,,{F3},ahk_id %fluency%
+                        if (local = 1) {
+                            controlsend,,{tab},ahk_id %fluency%
                         } else {
-                            send {F3}
+                            send {F16}
                         }
                 }
             }
