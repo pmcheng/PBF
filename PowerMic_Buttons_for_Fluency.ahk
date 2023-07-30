@@ -2,15 +2,12 @@
 ; by Phillip Cheng MD MS
 ; phillip.cheng@med.usc.edu
 
-; This script intercepts Powermic buttons and sends function key presses to the Fluency window.
-; If the Fluency window is not a top level window in the local OS (e.g. vGPU session), 
-; the script sends simulated keystrokes to the active window (this may have unintended side
-; effects if the Fluency window is not the active window, so be careful).
+; This script intercepts Powermic buttons and sends simulated keystrokes to the Fluency window.
+; If the Fluency window is in a VMWare session, the script sends simulated keystrokes to the 
+; VMWare session; these must be translated into appropriate keystrokes by the companion script,
+; "PowerMic Relay for Fluency."
 
-; The following setup must be performed in Fluency:
-; F1 = Start/Stop recording (Dictate button)
-; F2 = Previous field (Tab backward button)
-; F3 = Next field (Tab forward button)
+; Fluency should be configured to “Use tab and shift+tab to navigate fields”
 
 ; AHK Version 1.1
 ; uses AHKHID from https://github.com/jleb/AHKHID
@@ -86,11 +83,6 @@ v. 2023-07-29
 
 by Phillip Cheng MD MS
 phillip.cheng@med.usc.edu
-
-Fluency Setup:
-F1 = Start/Stop recording (PMic Dictate button)
-F2 = Previous field (PMic Tab backward button)
-F3 = Next field (PMic Tab forward button)
 
 Dictation Beep: 
         on = beep when PMic Dictate button pressed
