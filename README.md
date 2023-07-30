@@ -1,7 +1,7 @@
 PowerMic Buttons for Fluency
 ============================
 
-PowerMic Buttons for Fluency is an AutoHotkey script which persists as a tray icon, intercepts buttons on a PowerMic dictation microphone, and sends simulated key presses to Fluency for Imaging Reporting.  If Fluency is running within a VMWare window (my particular use case), then a second script "PowerMic Relay for Fluency" must be run within the VMWare session, which relays the appropriate key presses within the VMWare session.
+PowerMic Buttons for Fluency is an AutoHotkey script which persists as a tray icon, intercepts the "Dictate", "Next Field", and "Previous Field" buttons on a PowerMic dictation microphone, and sends simulated key presses to Fluency for Imaging Reporting.  If Fluency is running within a VMWare window (my particular use case), then a second script "PowerMic Relay for Fluency" must be run within the VMWare session, which relays the appropriate key presses within the VMWare session.
 
 The scripts can be downloaded [here](https://pcheng.org/powermic/PBF.zip).  Unzip the PBF.zip file, then extract it and run the executable "PowerMic_Buttons_for_Fluency.exe" on the system that has the PowerMic.  If applicable, run the executable "PowerMic_Relay_for_Fluency.exe" in the VMWare window.
 
@@ -9,6 +9,12 @@ Fluency should be configured to "Use tab and shift+tab to navigate fields", as s
 
 <p align="center">
 <img src="Fluency_Field_Navigation.png">
+</p>
+
+Make sure you have selected the PowerMic device:
+
+<p align="center">
+<img src="Selecting_PowerMic.png">
 </p>
 
 Right click the microphone tray icon to see configuration options:
