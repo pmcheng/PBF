@@ -34,6 +34,7 @@ beep:=1
 Menu, Tray, Add, Toggle Mode, toggle_mode
 Menu, Tray, ToggleCheck, Toggle Mode
 toggle:=1
+dictate:=0
 
 Menu, Tray, Add, Active, active
 Menu, Tray, ToggleCheck, Active
